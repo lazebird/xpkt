@@ -65,6 +65,12 @@ const num2hex = function (n) {
 };
 
 var initval = [0x45, 0x00, 0x00, 0xfc, 0xd4, 0x4d, 0x40, 0x00, 0x40, 0x11, 0x5c, 0xd7, 0x02, 0x02, 0x02, 0x5f, 0x02, 0x02, 0x02, 0x6a];
+const protoOpts = [
+  { label: 'icmp', value: 1 },
+  { label: 'igmp', value: 2 },
+  { label: 'tcp', value: 6 },
+  { label: 'udp', value: 17 },
+];
 function decode(arr, start) {
   var config = {
     key: 'ipv4',
@@ -88,15 +94,7 @@ function decode(arr, start) {
           return num_change(arr, e.pos, e.value, 1);
         },
       },
-      {
-        key: 'protocol',
-        value: arr[start + 9],
-        type: 'number',
-        pos: [start + 9, start + 9],
-        change: function (arr, e) {
-          return num_change(arr, e.pos, e.value, 1);
-        },
-      },
+      { key: 'protocol', value: arr[start + 9], options: protoOpts, pos: [start + 9, start + 9], change: (arr, e) => num_change(arr, e.pos, e.value, 1) },
       {
         key: 'checksum',
         value: num2hex(array2num(arr.slice(start + 10, start + 12))),

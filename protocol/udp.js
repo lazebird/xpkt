@@ -54,6 +54,16 @@ var __spreadArray =
     return to.concat(ar || Array.prototype.slice.call(from));
   };
 var initval = [0xa8, 0xfa, 0x18, 0xc7, 0x00, 0xe8, 0x17, 0x67];
+const dportOpts = [
+  { label: 'dhcp-server', value: 67 },
+  { label: 'dhcp-client', value: 68 },
+  { label: 'tftp', value: 69 },
+  { label: 'snmp', value: 161 },
+  { label: 'snmptrap', value: 162 },
+  { label: 'radius', value: 1812 },
+  { label: 'radius-acct', value: 1813 },
+  { label: 'sflow', value: 6343 },
+];
 function decode(arr, start) {
   var config = {
     key: 'udp',
@@ -68,15 +78,7 @@ function decode(arr, start) {
           return num_change(arr, e.pos, e.value, 2);
         },
       },
-      {
-        key: 'dport',
-        value: array2num(arr.slice(start + 2, start + 4)),
-        type: 'number',
-        pos: [start + 2, start + 3],
-        change: function (arr, e) {
-          return num_change(arr, e.pos, e.value, 2);
-        },
-      },
+      { key: 'dport', value: array2num(arr.slice(start + 2, start + 4)), options: dportOpts, pos: [start + 2, start + 3], change: (arr, e) => num_change(arr, e.pos, e.value, 2) },
       {
         key: 'checksum',
         value: num2hex(array2num(arr.slice(start + 6, start + 8))),
