@@ -1,4 +1,7 @@
 **This repository is used as a release and maintenance repository for xpkt software**
+
+[中文说明](./README_zh.md)
+
 # Table of contents
 [TOC]
 
@@ -26,7 +29,7 @@
      - Data compatible with mainflow formats/software
      - **Support extended protocol parsing capabilities**
 
-#xpkt Instructions for use
+# How to use
 ## xpkt flow build
 ![flow](./assets/flow.png)
 - Click `Flow` in the navigation area to enter the `Flow view`, as shown above, click the `+` next to `Configuration` in the right half of the area to add a new flow, or modify it based on the current flow. The following is the basic information:
