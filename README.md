@@ -70,6 +70,7 @@
 - When the flow/packet editing is completed, please don’t forget to click the `Save` button to save the flow. The saved flow will be saved in the configuration file and will not be lost even if the software is closed.
 
 ## xpkt flow sending
+![summary](./assets/summary.png)
 - Click `Summary` in the navigation area to enter the `Summary view`, you can see all the saved flows in the table, check the flow, and specify the sending network card, click the `play icon` button to start packet sending; click the `stop icon `You can end the contract sending
 - Note: Software packaging requires administrator rights
 
