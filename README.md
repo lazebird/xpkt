@@ -5,7 +5,7 @@
 <!-- TOC -->
 
 - [Table of contents](#table-of-contents)
-- [background](#background)
+- [Background](#background)
 - [Basic introduction to xpkt](#basic-introduction-to-xpkt)
 - [How to use](#how-to-use)
   - [xpkt flow build](#xpkt-flow-build)
@@ -21,7 +21,7 @@
 
 <!-- /TOC -->
 
-# background
+# Background
 - During the development process in the data communications field, it is often necessary to debug packets, and the outsourcing tool software will be used.
 - There are existing advanced software such as anysend/xcap (windows platform) and packEth (linux platform) in the industry. I have used them all and benefited a lot.
 - However, there are the following minor problems in the use of the above software
@@ -47,8 +47,8 @@
 
 # How to use
 ## xpkt flow build
-![flow](./assets/flow.png)
-- Click `Flow` in the navigation area to enter the `Flow view`, as shown above, click the `+` next to `Configuration` in the right half of the area to add a new flow, or modify it based on the current flow. The following is the basic information:
+![config](./assets/config.png)
+- Click `Configure` in the navigation area to enter the `Configuration view`, as shown above, click the `+` next to `Configuration` to add a new flow, or modify it based on the current flow. The following is the basic information:
    - Name: flow name, used to uniquely identify a flow
    - Mut Policies: Flow change policy, a policy used to dynamically adjust packet fields during packet sending.
      - Name: field name
@@ -59,24 +59,23 @@
      - Count: The total number of packets sent, optional, no limit by default
      - Rate(pps): packet sending rate, optional, no limit by default
      - Delay(ms): delay of each packet, optional, no limit by default
-- After configuring the basic flow information, you still need to configure specific packet content. You can click `Configure Packet` in the lower right corner to enter `Packet view`. See the next section for details.
+- After configuring the basic flow information, you still need to configure specific packet content. See the next section for details.
 
 ## xpkt packet construction
-![packet](./assets/pkt.png)
-- Click `Packet` in the navigation area to enter the `Packet view`, as shown above. packet editing has two modes
+- Packet editing has two modes
    - Structure editing mode: Structure editing mode refers to structured editing in the left half of the view. You can click the `+` button at the bottom to add new fields and modify the fields to quickly build packets.
    - Hex editing mode: Enter by clicking the `pen icon` next to `Hex` in the right half of the view. You can directly adjust the Hex data of the packet. After adjustment, click the confirmation button in the same position to complete the editing.
 
 ## xpkt flow save
-- When the flow/packet editing is completed, please don’t forget to return to the `Flow view` and click the `Save` button to save the flow. The saved flow will be saved in the configuration file and will not be lost even if the software is closed.
+- When the flow/packet editing is completed, please don’t forget to click the `Save` button to save the flow. The saved flow will be saved in the configuration file and will not be lost even if the software is closed.
 
 ## xpkt flow sending
-- Return to the `Flow view`, you can see all the saved flows in the table in the left half of the area, check the flow, and specify the sending network card, click the `play icon` button to start packet sending; click the `stop icon `You can end the contract sending
+- Click `Summary` in the navigation area to enter the `Summary view`, you can see all the saved flows in the table, check the flow, and specify the sending network card, click the `play icon` button to start packet sending; click the `stop icon `You can end the contract sending
 - Note: Software packaging requires administrator rights
 
 # xpkt protocol extension
 ## Extended configuration
-![setting](./assets/setting.png)
+![setting](./assets/setting2.png)
 - You can modify the configuration of `Protocol Directory` by clicking on the settings page. The software will automatically load all **js files** in the configuration directory and try to parse them into protocol processing files.
 - Therefore, users can implement protocol processing files by themselves, place them in a folder, and then configure the software to load user-defined protocol processing files to achieve the purpose of protocol expansion.
 
