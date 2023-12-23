@@ -51,10 +51,10 @@
    - Structure editing mode: Structure editing mode refers to structured editing in the left half of the view. You can click the `+` button at the bottom to add new fields and modify the fields to quickly build packets.
    - Hex editing mode: Enter by clicking the `pen icon` next to `Hex` in the right half of the view. You can directly adjust the Hex data of the packet. After adjustment, click the confirmation button in the same position to complete the editing.
 
-##xpkt flow save
+## xpkt flow save
 - When the flow/packet editing is completed, please don’t forget to return to the `Flow view` and click the `Save` button to save the flow. The saved flow will be saved in the configuration file and will not be lost even if the software is closed.
 
-##xpkt flow sending
+## xpkt flow sending
 - Return to the `Flow view`, you can see all the saved flows in the table in the left half of the area, check the flow, and specify the sending network card, click the `play icon` button to start packet sending; click the `stop icon `You can end the contract sending
 - Note: Software packaging requires administrator rights
 
