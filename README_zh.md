@@ -1,6 +1,25 @@
 **本仓库作为xpkt软件的发布和维护仓库使用**
+
+[English](./README.md)
 # 目录
-[TOC]
+<!-- TOC -->
+
+- [目录](#目录)
+- [背景](#背景)
+- [xpkt基本介绍](#xpkt基本介绍)
+- [xpkt使用说明](#xpkt使用说明)
+  - [xpkt流构建](#xpkt流构建)
+  - [xpkt报文构建](#xpkt报文构建)
+  - [xpkt流保存](#xpkt流保存)
+  - [xpkt流发送](#xpkt流发送)
+- [xpkt协议扩展](#xpkt协议扩展)
+  - [扩展配置](#扩展配置)
+  - [协议处理规则](#协议处理规则)
+  - [协议处理ts定义](#协议处理ts定义)
+- [常见问题](#常见问题)
+  - [遇到bug或有需求怎么办？](#遇到bug或有需求怎么办)
+
+<!-- /TOC -->
 
 # 背景
 - 数通领域开发过程中，经常需要对报文进行调试，会使用到发包工具软件。
@@ -55,4 +74,77 @@
 - 回到`Flow视图`，在左半区中表格中可以看到所有保存的流，对流进行勾选，同时指定发送的网卡，点击`播放图标`按钮，即可启动发包；点击`停止图标`可以结束发包
 - 注意：软件发包需要具备管理员权限
 
+# xpkt协议扩展
+## 扩展配置
+![setting](./assets/setting.png)
+- 在设置页面中可以通过单击修改`Protocol Directory`的配置，软件会自动加载配置目录下的所有**js文件**，并尝试解析为协议处理文件
+- 因此用户可以自行实现协议处理文件，统一放在文件夹内，然后通过配置让软件加载用户自定义的协议处理文件，达到协议扩展的目的
+
+## 协议处理规则
+```js
+// only core code snippets here
+var initval = [0x00, 0x0e, 0xc6, 0xc1, 0x38, 0x41, 0x74, 0xa9, 0x12, 0x12, 0x03, 0x12, 0x08, 0x00];
+const etypeOpts = [ { label: 'ipv4', value: '0x0800' }, { label: 'arp', value: '0x0806' } ];
+function decode(arr, start) {
+  var config = {
+    key: 'eth',
+    pos: [start, start + 13],
+    children: [
+      { key: 'dmac', value: array2mac(arr.slice(start, start + 6)), type: 'mac', pos: [start, start + 5], change: (arr, e) => mac_change(arr, e.pos, e.value) },
+      { key: 'smac', value: array2mac(arr.slice(start + 6, start + 12)), type: 'mac', pos: [start + 6, start + 11], change: (arr, e) => mac_change(arr, e.pos, e.value) },
+      { key: 'etype', value: num2hex(array2num(arr.slice(start + 12, start + 14))), options: etypeOpts, pos: [start + 12, start + 13], change: (arr, e) => num_change(arr, e.pos, e.value, 2) },
+    ],
+  };
+  return config;
+}
+export default { name: 'eth', parents: 'none', initval: initval, decode: decode };
+```
+- 如上为eth协议处理文件片段，更多协议可以参考`/protocol`目录下的内置协议处理脚本；各字段更多细节可以参考ts定义
+
+## 协议处理ts定义
+- 参考[protocol.d.ts](./protocol/protocol.d.ts)
+```ts
+interface ProtocolDecodeFn {
+  (_arr: Array<number>, _start: number): ProtocolConfig;
+}
+
+interface ProtocolChangeFn {
+  (_arr: Array<number>, _e: ProtocolConfig): Array<number>;
+}
+
+interface ProtocolCheckFn {
+  (_arr: Array<number>, _e: ProtocolConfig): any;
+}
+interface ProtocolUpdateFn {
+  (_arr: Array<number>, _e: ProtocolConfig): Array<number>;
+}
+
+export interface ProtocolParentItem {
+  name: string;
+  pname: string;
+  pval: any;
+}
+export interface ProtocolConfig {
+  key: string;
+  pos: Array<number>;
+  children?: Array<ProtocolConfig>;
+  type?: 'number' | 'mac' | 'ipv4' | 'hex' | 'pkt';
+  value?: any;
+  options?: Array<any>;
+  status?: 'error';
+  change?: ProtocolChangeFn;
+  check?: ProtocolCheckFn;
+  update?: ProtocolUpdateFn;
+}
+export interface ProtocolItem {
+  name: string;
+  priority?: number;
+  parents: string | Array<ProtocolParentItem>;
+  initval: Array<number>;
+  decode: ProtocolDecodeFn;
+}
+```
+
 # 常见问题
+## 遇到bug或有需求怎么办？
+- 可以在GitHub上面提交issue，虽然是业余爱好，但是会尽量解决
