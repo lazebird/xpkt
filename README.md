@@ -102,7 +102,7 @@ export default { name: 'eth', parents: 'none', initval: initval, decode: decode 
 - The above is a fragment of the eth protocol processing file. For more protocols, please refer to the built-in protocol processing script in the `/protocol` directory. For more details on each field, please refer to the ts definition.
 
 ## Protocol processing ts definition
-- Refer to [protocol.d.ts](./protocol/protocol.d.ts)
+- Refer to [protocol.d.ts](./types/protocol.d.ts)
 ```ts
 interface ProtocolDecodeFn {
    (_arr: Array<number>, _start: number): ProtocolConfig;

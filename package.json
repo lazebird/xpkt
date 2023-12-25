@@ -1,0 +1,14 @@
+{
+  "type": "module",
+  "scripts": {
+    "lint": "eslint --cache --max-warnings 0  --fix \"{protocol,protocol_ts,types}/**/*.{vue,ts,tsx,js}\"",
+    "tsc": "tsc && lint"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "eslint": "^8.56.0",
+    "eslint-define-config": "^2.0.0",
+    "typescript": "^5.3.3"
+  }
+}

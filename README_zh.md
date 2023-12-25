@@ -102,7 +102,7 @@ export default { name: 'eth', parents: 'none', initval: initval, decode: decode 
 - 如上为eth协议处理文件片段，更多协议可以参考`/protocol`目录下的内置协议处理脚本；各字段更多细节可以参考ts定义
 
 ## 协议处理ts定义
-- 参考[protocol.d.ts](./protocol/protocol.d.ts)
+- 参考[protocol.d.ts](./types/protocol.d.ts)
 ```ts
 interface ProtocolDecodeFn {
   (_arr: Array<number>, _start: number): ProtocolConfig;

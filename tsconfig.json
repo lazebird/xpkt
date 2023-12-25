@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "useDefineForClassFields": true,
+    "module": "es2022",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "lib": ["es2022", "dom"],
+    "outDir": "protocol",
+    "baseUrl": ".",
+    "paths": {
+      "@/api/*": ["protocol_ts/*"],
+      "#/*": ["types/*"]
+    }
+  },
+  "include": ["protocol_ts/**/*.ts", "types/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
+}
