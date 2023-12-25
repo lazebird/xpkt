@@ -17,6 +17,9 @@ devDependencies:
   eslint-define-config:
     specifier: ^2.0.0
     version: 2.0.0
+  eslint-plugin-unused-vars:
+    specifier: ^0.0.3
+    version: 0.0.3(@typescript-eslint/eslint-plugin@6.15.0)(eslint@8.56.0)
   typescript:
     specifier: ^5.3.3
     version: 5.3.3
@@ -386,6 +389,26 @@ packages:
   /eslint-define-config@2.0.0:
     resolution: {integrity: sha512-M8ao9mAE35BGwjZeT8ZlsRA42wcJHWS29Avd0qfeclRXig6uTnGXcaO7UxVyFzUA1VJtxeV/acw4KrhJA3JqxQ==}
     engines: {node: '>=18.0.0', npm: '>=9.0.0', pnpm: '>=8.6.0'}
+    dev: true
+
+  /eslint-plugin-unused-vars@0.0.3(@typescript-eslint/eslint-plugin@6.15.0)(eslint@8.56.0):
+    resolution: {integrity: sha512-+WJqNS3RVksgDGLxe1i1MOmlVtnzXyAPYyeFZTOBT7YqNy6EFBMmy/M7C7ubGnyA+kYoB2cNqIhcXVeJno+ktQ==}
+    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+    peerDependencies:
+      '@typescript-eslint/eslint-plugin': ^5.0.0
+      eslint: ^8.0.0
+    peerDependenciesMeta:
+      '@typescript-eslint/eslint-plugin':
+        optional: true
+    dependencies:
+      '@typescript-eslint/eslint-plugin': 6.15.0(@typescript-eslint/parser@6.15.0)(eslint@8.56.0)(typescript@5.3.3)
+      eslint: 8.56.0
+      eslint-rule-composer: 0.3.0
+    dev: true
+
+  /eslint-rule-composer@0.3.0:
+    resolution: {integrity: sha512-bt+Sh8CtDmn2OajxvNO+BX7Wn4CIWMpTRm3MaiKPCQcnnlm0CS2mhui6QaoeQugs+3Kj2ESKEEGJUdVafwhiCg==}
+    engines: {node: '>=4.0.0'}
     dev: true
 
   /eslint-scope@7.2.2:

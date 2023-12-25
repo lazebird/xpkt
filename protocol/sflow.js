@@ -26,14 +26,7 @@ function arr2hex(arr, wrap = 31) {
     const fmt = Array(6).fill('');
     return fmt.map((_, i) => parseInt(rawVal?.slice(i * 2, i * 2 + 2) ?? '0', 16));
   }
-  function ip2arr(val) {
-    const matches = val.match(/^(\d+)\.(\d+)\.(\d+)\.(\d+)$/);
-    // console.log(matches);
-    if (!matches) return null;
-    const digits = matches.slice(1, 5).map((d) => parseInt(d));
-    for (const d of digits) if (d < 0 || d > 255) return null;
-    return digits;
-  }
+  
   function num2arr(val, len = 4) {
     const hex = val.toString(16).padStart(len << 1, '0');
     const arr = Array(len).fill(0);
@@ -54,13 +47,7 @@ function arr2hex(arr, wrap = 31) {
     for (let i = pos[0]; i <= pos[1]; i++) arr[i] = nums[j++];
     return arr;
   }
-  function ipv4_change(arr, pos, val) {
-    const nums = ip2arr(val);
-    if (!nums) return arr;
-    let j = 0;
-    for (let i = pos[0]; i <= pos[1]; i++) arr[i] = nums[j++];
-    return arr;
-  }
+  
   function hex_change(arr, pos, val) {
     const nums = hex2arr(val);
     if (!nums) return arr;
@@ -68,22 +55,8 @@ function arr2hex(arr, wrap = 31) {
     for (let i = pos[0]; i <= pos[1]; i++) arr[i] = nums[j++];
     return arr;
   }
-  function checksum_calc(arr, len) {
-    let sum = 0;
-    for (let i = 0; i < len - 1; i += 2) sum += (arr[i] << 8) + arr[i + 1];
-    if (len & 1) sum += arr[len - 1];
-    sum = (sum >> 16) + (sum & 0xffff);
-    const checksum = (~sum >>> 0) & 0xffff; // transfer to unsigned
-    return checksum;
-  }
-  function checksum_check(arr, len) {
-    let sum = 0;
-    for (let i = 0; i < len - 1; i += 2) sum += (arr[i] << 8) + arr[i + 1];
-    if (len & 1) sum += arr[len - 1];
-    sum = (sum >> 16) + (sum & 0xffff);
-    // console.log('arr %s, len %d, sum %s', arr, len, sum.toString(16));
-    return sum === 0xffff;
-  }
+  
+  
   const num2hex = (n) => '0x' + n.toString(16);
   const initval = [
     0x00, 0x00, 0x00, 0x05, 0x00, 0x00, 0x00, 0x01, 0x02, 0x02, 0x02, 0x5f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x24, 0x6d, 0x00, 0x03, 0x05, 0x70, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0xbc, 0x00, 0x00, 0xfc, 0xea, 0x00,

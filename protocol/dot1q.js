@@ -1,37 +1,8 @@
-function arr2hex(arr, wrap = 31) {
-  let str = '';
-  for (let i = 0; i < arr.length; i++) {
-    if (i && (i & wrap) === 0) str += '\n';
-    else if (i && (i & 7) === 0) str += '\t';
-    str += arr[i].toString(16).padStart(2, '0') + ' ';
-  }
-  return str.trim();
-}
+
 const array2num = (arr) => arr.reduce((acc, val) => (acc << 8) + val, 0);
-function hex2arr(val) {
-  const nums = val.split(/\s+/).filter((e) => e.length);
-  // console.log('val %s, nums %o', val, nums);
-  for (const n of nums) if (n.length > 2) return null;
-  return nums.map((e) => parseInt(e, 16));
-}
-function mac2arr(val) {
-  let rawVal = '';
-  if (val.match(/^[0-9a-f]{2}:[0-9a-f]{2}:[0-9a-f]{2}:[0-9a-f]{2}:[0-9a-f]{2}:[0-9a-f]{2}$/)) rawVal = val.replaceAll(':', '');
-  if (val.match(/^[0-9a-f]{4}.[0-9a-f]{4}.[0-9a-f]{4}$/)) rawVal = val.replaceAll('.', '');
-  if (val.match(/^[0-9A-F]{2}-[0-9A-F]{2}-[0-9A-F]{2}-[0-9A-F]{2}-[0-9A-F]{2}-[0-9A-F]{2}$/)) rawVal = val.replaceAll('-', '');
-  if (val.match(/^[0-9a-f]{12}$/)) rawVal = val;
-  if (!rawVal) return null;
-  const fmt = Array(6).fill('');
-  return fmt.map((_, i) => parseInt(rawVal?.slice(i * 2, i * 2 + 2) ?? '0', 16));
-}
-function ip2arr(val) {
-  const matches = val.match(/^(\d+)\.(\d+)\.(\d+)\.(\d+)$/);
-  // console.log(matches);
-  if (!matches) return null;
-  const digits = matches.slice(1, 5).map((d) => parseInt(d));
-  for (const d of digits) if (d < 0 || d > 255) return null;
-  return digits;
-}
+
+
+
 function num2arr(val, len = 4) {
   const hex = val.toString(16).padStart(len << 1, '0');
   const arr = Array(len).fill(0);
