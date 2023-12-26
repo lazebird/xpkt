@@ -30,7 +30,7 @@
    - The protocol support is not strong enough and the flexibility/expansibility is not enough
    - Performance is average, roughly around 1kpps
    - Software updates are slow and small problems are difficult to solve.
-- Initially, it appears that the existing software is developed based on low-level languages such as c/c++ (packEth C is about 10kloc), and expansion and maintenance are relatively difficult. Therefore, we consider implementing a new outsourcing tool based on new technologies to provide another option for data communication students. I am very grateful to the senior software for providing you with the traversal and inspiration for this software.
+- Initially, it appears that the existing software is developed based on low-level languages such as c/c++ (packEth C is about 10kloc), and expansion and maintenance are relatively difficult. Therefore, we consider implementing a new outsourcing tool based on new technologies to provide another option for data communication students. I am very grateful to the senior software for providing you with the convinience and inspiration for this software.
 
 # Basic introduction to xpkt
 - xpkt is a professional free outsourcing tool software. It has the following characteristics:
