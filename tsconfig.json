@@ -12,10 +12,10 @@
     "outDir": "protocol",
     "baseUrl": ".",
     "paths": {
-      "@/api/*": ["protocol_ts/*"],
+      "@/*": ["src/*"],
       "#/*": ["types/*"]
     }
   },
-  "include": ["protocol_ts/**/*.ts", "types/**/*.ts"],
+  "include": ["protocol_ts/**/*.ts", "types/**/*.ts", "src/**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }
