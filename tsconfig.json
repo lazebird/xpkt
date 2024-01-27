@@ -16,6 +16,6 @@
       "#/*": ["types/*"]
     }
   },
-  "include": ["protocol_ts/**/*.ts", "types/**/*.ts", "src/**/*.ts"],
+  "include": ["protocol_ts/**/*.ts", "types/**/*.ts", "src/**/*.ts", "src/**/*.vue"],
   "exclude": ["node_modules", "dist"]
 }
