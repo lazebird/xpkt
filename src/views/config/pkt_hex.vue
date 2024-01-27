@@ -3,6 +3,7 @@
     <h2>Hex</h2>
     <a-tooltip v-if="flowStore.pkt_mode === 'hex'" title="finish hex edit"> <a-button class="btn" @click.stop="onApply" :icon="h(CheckOutlined)" /></a-tooltip>
     <a-tooltip v-else title="enter hex edit mode"> <a-button class="btn" @click.stop="onEdit" :icon="h(EditOutlined)" /></a-tooltip>
+    <a-tooltip title="save pkt"> <a-button class="btn" @click.stop="onSave" :icon="h(SaveOutlined)" type="primary" /></a-tooltip>
   </a-row>
   <div style="display: flex">
     <pre class="pkt" v-if="flowStore.pkt_mode !== 'hex'">{{ viewData[0] }}<span class="select">{{ viewData[1] }}</span>{{ viewData[2] }}</pre>
@@ -13,7 +14,7 @@
   import { h, computed, ref } from 'vue';
   import { arr2hex, hex2arr } from '@/api/share';
   import { useFlowStore } from '@/store/flow';
-  import { EditOutlined, CheckOutlined } from '@ant-design/icons-vue';
+  import { EditOutlined, CheckOutlined, SaveOutlined } from '@ant-design/icons-vue';
   import { message } from 'ant-design-vue';
 
   const flowStore = useFlowStore();
@@ -36,6 +37,7 @@
     editData.value = arr2hex(flowStore.editPkt, 15);
     flowStore.pkt_set_mode('hex');
   }
+  const onSave = () => flowStore.save();
 </script>
 <style scoped>
   .btn {

@@ -3,25 +3,21 @@ import { defineStore } from 'pinia';
 import { store } from './index';
 import { FlowConf, FlowItem } from '#/flow';
 import { sflow_buf2 } from '@/api/data';
-import { tauri_on } from '@/api/share';
+import { getUserConf, setUserConf } from '@/api/conf';
 
-const flowCfgFile = 'xpkt_flow.cfg';
-const initConf: FlowConf = { flows: [], ifname: undefined, selected_keys: [] };
 const initFlow: FlowItem = { name: 'test', pkt: sflow_buf2, muts: [], tx: { count: 1 } };
 const newFlow: FlowItem = { name: '', pkt: [], muts: [], tx: { count: 1 } };
 
 export const useFlowStore = defineStore('flow', () => {
   const conf = ref({} as FlowConf);
   async function init() {
-    let cfg: FlowConf = initConf;
     try {
-      if (tauri_on()) cfg = JSON.parse(await invoke('read_file', { dname: '', fname: flowCfgFile }));
+      const pkt = JSON.parse(getUserConf('pkt'));
+      conf.value.flows = [{ ...initFlow, pkt: pkt ?? initFlow.pkt }];
     } catch (e) {
-      console.log('read %s error: %o, use default config', flowCfgFile, e);
+      console.log('read error: %o, use default config', e);
+      conf.value.flows = [initFlow];
     }
-
-    conf.value = cfg;
-    if (!conf.value.flows.length) conf.value.flows = [initFlow];
     flow_edit(conf.value.flows.length - 1); // auto use the last flow for edit, for test
   }
   const flows = computed(() => conf.value.flows);
@@ -46,7 +42,7 @@ export const useFlowStore = defineStore('flow', () => {
   };
 
   const load = () => undefined;
-  const save = async () => {};
+  const save = async () => setUserConf(JSON.stringify(editPkt.value), 'pkt');
   return { init, flows, flows_set, editFlow, flow_edit, editPkt, pkt_update, pkt_pos, pkt_select, pkt_mode, pkt_set_mode, selected_keys, keys_select, load, save };
 });
 
