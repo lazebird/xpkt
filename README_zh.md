@@ -9,9 +9,8 @@
 - [xpkt基本介绍](#xpkt%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D)
 - [xpkt使用说明](#xpkt%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E)
     - [xpkt流构建](#xpkt%E6%B5%81%E6%9E%84%E5%BB%BA)
-    - [xpkt报文构建](#xpkt%E6%8A%A5%E6%96%87%E6%9E%84%E5%BB%BA)
     - [xpkt流保存](#xpkt%E6%B5%81%E4%BF%9D%E5%AD%98)
-    - [xpkt流发送](#xpkt%E6%B5%81%E5%8F%91%E9%80%81)
+    - [多流模式](#%E5%A4%9A%E6%B5%81%E6%A8%A1%E5%BC%8F)
 - [xpkt协议扩展](#xpkt%E5%8D%8F%E8%AE%AE%E6%89%A9%E5%B1%95)
     - [开发说明](#%E5%BC%80%E5%8F%91%E8%AF%B4%E6%98%8E)
     - [使用扩展协议](#%E4%BD%BF%E7%94%A8%E6%89%A9%E5%B1%95%E5%8D%8F%E8%AE%AE)
@@ -20,6 +19,7 @@
 - [常见问题](#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98)
     - [遇到bug或有需求怎么办？](#%E9%81%87%E5%88%B0bug%E6%88%96%E6%9C%89%E9%9C%80%E6%B1%82%E6%80%8E%E4%B9%88%E5%8A%9E)
 
+<!-- /TOC -->
 <!-- /TOC -->
 # 背景
 - 数通领域开发过程中，经常需要对报文进行调试，会使用到发包工具软件。
@@ -47,31 +47,18 @@
 
 # xpkt使用说明
 ## xpkt流构建
-![config](./assets/config.png)
-- 点击导航区的`Configure`进入`配置界面`，如上图，点击左侧区域的`Configuration`旁边的`+`，添加全新的流，或者基于当前的流进行修改，以下是基本信息说明：
-  - Name：流名称，用于唯一标识一条流
-  - Mut Policies：流变化策略，用于在发包期间动态调整报文字段的策略
-    - Name：字段名称
-    - Position：字段位置，仅当名称为custom自定义时出现，手动配置变化的范围
-    - Method：变化方法，当前仅支持减少/增加/随机
-    - Step: 变化步幅，仅减少/增加时可配
-  - Tx Policy: 发包策略
-    - Count: 总的发包数，可选，默认不限制
-    - Rate(pps)：发包速率，可选，默认不限制
-    - Delay(ms)：每包延迟，可选，默认不限制
-- 流基本信息配置完成后，还需要配置具体的报文内容，具体见下一节
-
-## xpkt报文构建
-- 报文编辑具备两种模式
-  - 结构编辑模式：结构编辑方式指视图左半区的结构化编辑，可以点击底部`+`按钮添加新的字段，并对字段进行修改来实现快速构建报文
-  - Hex编辑模式：通过点击视图右半区`Hex`旁边的`笔形图标`进入，可以直接调整报文的Hex数据，调整完后点击同位置的确认按钮完成编辑
+![solo](./assets/solo.png)
+- 点击导航区的`Solo`进入单流配置模式。点击右下角的`Edit Mode`可以切换配置方式，可选基于模板的配置和基于十六进制数据方式
+- 配置完成后，点击`Start`或`Stop`就可以进行打流了
+- 注意：软件发包需要具备管理员权限
 
 ## xpkt流保存
-- 当流/报文编辑全部完成后，请不要忘记点击`Save`按钮将流保存下来，保存的流会存到配置文件中，即便软件关闭也不会丢失
+- 点击`Save`按钮可以将流保存下来，保存的流会存到配置文件中，即便软件关闭也不会丢失
+- 多流模式需要基于此处保存的流信息进行
 
-## xpkt流发送
-![summary](./assets/summary.png)
-- 点击`Summary`回到`概览视图`，表格中可以看到所有保存的流，对流进行勾选，同时指定发送的网卡，点击`播放图标`按钮，即可启动发包；点击`停止图标`可以结束发包
+## 多流模式
+![multiple](./assets/multiple.png)
+- 点击`Multiple`进入多流模式，表格中可以看到所有保存的流，对流进行勾选，点击`Start`或`Stop`就可以进行打流了
 - 注意：软件发包需要具备管理员权限
 
 # xpkt协议扩展
@@ -80,9 +67,10 @@
 - 用户可以基于本仓库建立自己的protocol目录，提供各种定制的协议扩展。也欢迎大家提交PR分享各自的protocol实现。
 
 ## 使用扩展协议
-![setting](./assets/setting2.png)
+![setting](./assets/setting.png)
 - 在设置页面中可以通过单击修改`Protocol Directory`的配置，软件会自动加载配置目录下的所有**js文件**，并尝试解析为协议处理文件
 - 因此用户可以自行实现协议处理文件，统一放在文件夹内，然后通过配置让软件加载用户自定义的协议处理文件，达到协议扩展的目的
+![protocol](./assets/protocol.png)
 
 ## 协议处理规则
 ```js
@@ -101,7 +89,7 @@ function decode(arr, start) {
   };
   return config;
 }
-export default { name: 'eth', parents: 'none', initval: initval, decode: decode };
+export default { name: 'eth', parents: 'none', initval: initval, decode: decode, allow_payload: true };
 ```
 - 如上为eth协议处理文件片段，更多协议可以参考`/protocol`目录下的内置协议处理脚本；各字段更多细节可以参考ts定义
 
@@ -109,43 +97,44 @@ export default { name: 'eth', parents: 'none', initval: initval, decode: decode 
 - 参考[protocol.d.ts](./types/protocol.d.ts)
 ```ts
 interface ProtocolDecodeFn {
-  (_arr: Array<number>, _start: number): ProtocolConfig;
+  (_arr: Array<number>, _start: number): ProtocolNode;
 }
 
 interface ProtocolChangeFn {
-  (_arr: Array<number>, _e: ProtocolConfig): Array<number>;
+  (_arr: Array<number>, _e: ProtocolNode): Array<number>;
 }
 
 interface ProtocolCheckFn {
-  (_arr: Array<number>, _e: ProtocolConfig): any;
+  (_arr: Array<number>, _e: ProtocolNode): any;
 }
-interface ProtocolUpdateFn {
-  (_arr: Array<number>, _e: ProtocolConfig): Array<number>;
+interface ProtocolCalcFn {
+  (_arr: Array<number>, _e: ProtocolNode): Array<number>;
 }
 
-export interface ProtocolParentItem {
+export interface ProtocolParentConfig {
   name: string;
-  pname: string;
-  pval: any;
+  pname?: string;
+  pval?: any;
 }
-export interface ProtocolConfig {
+export interface ProtocolNode {
   key: string;
   pos: Array<number>;
-  children?: Array<ProtocolConfig>;
-  type?: 'number' | 'mac' | 'ipv4' | 'hex' | 'pkt';
+  children?: Array<ProtocolNode>;
+  type?: 'number' | 'mac' | 'ipv4' | 'ipv6' | 'hex' | 'pkt';
   value?: any;
   options?: Array<any>;
   status?: 'error';
   change?: ProtocolChangeFn;
   check?: ProtocolCheckFn;
-  update?: ProtocolUpdateFn;
+  calc?: ProtocolCalcFn;
 }
-export interface ProtocolItem {
+export interface ProtocolConfig {
   name: string;
   priority?: number;
-  parents: string | Array<ProtocolParentItem>;
+  parents: Array<ProtocolParentConfig> | null;
   initval: Array<number>;
   decode: ProtocolDecodeFn;
+  allow_payload?: boolean;
 }
 ```
 

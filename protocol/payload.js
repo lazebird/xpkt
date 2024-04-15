@@ -68,4 +68,4 @@ function decode(arr, start) {
     };
     return config;
 }
-export default { name: 'payload', parents: 'all', priority: 255, initval, decode };
+export default { name: 'payload', parents: [], priority: 255, initval, decode };

@@ -9,9 +9,8 @@
 - [Basic introduction to xpkt](#basic-introduction-to-xpkt)
 - [How to use](#how-to-use)
   - [xpkt flow build](#xpkt-flow-build)
-  - [xpkt packet construction](#xpkt-packet-construction)
   - [xpkt flow save](#xpkt-flow-save)
-  - [xpkt flow sending](#xpkt-flow-sending)
+  - [multiple flows mode](#multiple-flows-mode)
 - [xpkt protocol extension](#xpkt-protocol-extension)
   - [Development instructions](#development-instructions)
   - [Use extended protocols](#use-extended-protocols)
@@ -21,7 +20,6 @@
   - [What should I do if I encounter a bug or have a need?](#what-should-i-do-if-i-encounter-a-bug-or-have-a-need)
 
 <!-- /TOC -->
-
 # Background
 - During the development process in the data communications field, it is often necessary to debug packets, and the outsourcing tool software will be used.
 - There are existing advanced software such as anysend/xcap (windows platform) and packEth (linux platform) in the industry. I have used them all and benefited a lot.
@@ -48,32 +46,17 @@
 
 # How to use
 ## xpkt flow build
-![config](./assets/config.png)
-- Click `Configure` in the navigation area to enter the `Configuration view`, as shown above, click the `+` next to `Configuration` to add a new flow, or modify it based on the current flow. The following is the basic information:
-   - Name: flow name, used to uniquely identify a flow
-   - Mut Policies: Flow change policy, a policy used to dynamically adjust packet fields during packet sending.
-     - Name: field name
-     - Position: field position, only appears when the name is custom, manually configure the range of changes
-     - Method: Change method, currently only supports decrease/increase/random
-     - Step: change the step length, can only be configured when decreasing/increasing
-   - Tx Policy: Tx policy
-     - Count: The total number of packets sent, optional, no limit by default
-     - Rate(pps): packet sending rate, optional, no limit by default
-     - Delay(ms): delay of each packet, optional, no limit by default
-- After configuring the basic flow information, you still need to configure specific packet content. See the next section for details.
-
-## xpkt packet construction
-- Packet editing has two modes
-   - Structure editing mode: Structure editing mode refers to structured editing in the left half of the view. You can click the `+` button at the bottom to add new fields and modify the fields to quickly build packets.
-   - Hex editing mode: Enter by clicking the `pen icon` next to `Hex` in the right half of the view. You can directly adjust the Hex data of the packet. After adjustment, click the confirmation button in the same position to complete the editing.
+![solo](./assets/solo.png)
+- Click `Solo` in the navigation area, you can use templates or hex to build a flow, click `Edit Mode` at the right-bottom area to change mode.
+- Click `Start` or `Stop` at the right-bottom area to send or stop the flow.
 
 ## xpkt flow save
-- When the flow/packet editing is completed, please don’t forget to click the `Save` button to save the flow. The saved flow will be saved in the configuration file and will not be lost even if the software is closed.
+- Click the `Save` button to save the flow. You must save your flows for multiple sent then.
+- The saved flow will be saved in the configuration file and will not be lost even if the software is closed.
 
-## xpkt flow sending
-![summary](./assets/summary.png)
-- Click `Summary` in the navigation area to enter the `Summary view`, you can see all the saved flows in the table, check the flow, and specify the sending network card, click the `play icon` button to start packet sending; click the `stop icon `You can end the contract sending
-- Note: Software packaging requires administrator rights
+## multiple flows mode
+![multiple](./assets/multiple.png)
+- Click `Multiple` in the navigation area, you can see all your saved flows there. You can select them, change tx policies, and click `start` or `stop` to send or stop the selected flows
 
 # xpkt protocol extension
 ## Development instructions
@@ -81,9 +64,10 @@
 - Users can create their own protocol directory based on this warehouse and provide various customized protocol extensions. Everyone is also welcome to submit PRs to share their own protocol implementations.
 
 ## Use extended protocols
-![setting](./assets/setting2.png)
+![setting](./assets/setting.png)
 - You can modify the configuration of `Protocol Directory` by clicking on the settings page. The software will automatically load all **js files** in the configuration directory and try to parse them into protocol processing files.
 - Therefore, users can implement protocol processing files by themselves, place them in a folder, and then configure the software to load user-defined protocol processing files to achieve the purpose of protocol expansion.
+![protocol](./assets/protocol.png)
 
 ## Protocol processing rules
 ```js
@@ -102,7 +86,7 @@ function decode(arr, start) {
    };
    return config;
 }
-export default { name: 'eth', parents: 'none', initval: initval, decode: decode };
+export default { name: 'eth', parents: 'none', initval: initval, decode: decode, allow_payload: true };
 ```
 - The above is a fragment of the eth protocol processing file. For more protocols, please refer to the built-in protocol processing script in the `/protocol` directory. For more details on each field, please refer to the ts definition.
 
@@ -110,43 +94,44 @@ export default { name: 'eth', parents: 'none', initval: initval, decode: decode 
 - Refer to [protocol.d.ts](./types/protocol.d.ts)
 ```ts
 interface ProtocolDecodeFn {
-   (_arr: Array<number>, _start: number): ProtocolConfig;
+  (_arr: Array<number>, _start: number): ProtocolNode;
 }
 
 interface ProtocolChangeFn {
-   (_arr: Array<number>, _e: ProtocolConfig): Array<number>;
+  (_arr: Array<number>, _e: ProtocolNode): Array<number>;
 }
 
 interface ProtocolCheckFn {
-   (_arr: Array<number>, _e: ProtocolConfig): any;
+  (_arr: Array<number>, _e: ProtocolNode): any;
 }
-interface ProtocolUpdateFn {
-   (_arr: Array<number>, _e: ProtocolConfig): Array<number>;
+interface ProtocolCalcFn {
+  (_arr: Array<number>, _e: ProtocolNode): Array<number>;
 }
 
-export interface ProtocolParentItem {
-   name: string;
-   pname: string;
-   pval: any;
+export interface ProtocolParentConfig {
+  name: string;
+  pname?: string;
+  pval?: any;
+}
+export interface ProtocolNode {
+  key: string;
+  pos: Array<number>;
+  children?: Array<ProtocolNode>;
+  type?: 'number' | 'mac' | 'ipv4' | 'ipv6' | 'hex' | 'pkt';
+  value?: any;
+  options?: Array<any>;
+  status?: 'error';
+  change?: ProtocolChangeFn;
+  check?: ProtocolCheckFn;
+  calc?: ProtocolCalcFn;
 }
 export interface ProtocolConfig {
-   key: string;
-   pos: Array<number>;
-   children?: Array<ProtocolConfig>;
-   type?: 'number' | 'mac' | 'ipv4' | 'hex' | 'pkt';
-   value?: any;
-   options?: Array<any>;
-   status?: 'error';
-   change?: ProtocolChangeFn;
-   check?: ProtocolCheckFn;
-   update?: ProtocolUpdateFn;
-}
-export interface ProtocolItem {
-   name: string;
-   priority?: number;
-   parents: string | Array<ProtocolParentItem>;
-   initval: Array<number>;
-   decode: ProtocolDecodeFn;
+  name: string;
+  priority?: number;
+  parents: Array<ProtocolParentConfig> | null;
+  initval: Array<number>;
+  decode: ProtocolDecodeFn;
+  allow_payload?: boolean;
 }
 ```
 

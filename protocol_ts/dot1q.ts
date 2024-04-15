@@ -1,4 +1,4 @@
-import { ProtocolConfig } from '#/protocol';
+import { ProtocolConfig, ProtocolNode } from '#/protocol';
 import { array2num, num2hex, num_change } from './share';
 
 const initval = [0x50, 0x02, 0x08, 0x00];
@@ -26,7 +26,7 @@ function vlan_change(arr: Array<number>, pos: Array<number>, val: number) {
 }
 
 function decode(arr: Array<number>, start: number) {
-  const config: ProtocolConfig = {
+  const config: ProtocolNode = {
     key: 'dot1q',
     pos: [start, start + 3],
     children: [
@@ -37,4 +37,13 @@ function decode(arr: Array<number>, start: number) {
   };
   return config;
 }
-export default { name: 'dot1q', parents: [{ name: 'eth', pname: 'etype', pval: 0x8100 }], initval, decode };
+export default {
+  name: 'dot1q',
+  parents: [
+    { name: 'eth', pname: 'etype', pval: 0x8100 },
+    { name: 'dot1q', pname: 'etype', pval: 0x8100 },
+  ],
+  initval,
+  decode,
+  allow_payload: true,
+} as ProtocolConfig;

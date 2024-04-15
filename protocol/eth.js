@@ -70,4 +70,4 @@ function decode(arr, start) {
     };
     return config;
 }
-export default { name: 'eth', parents: 'none', initval, decode };
+export default { name: 'eth', parents: null, initval, decode, allow_payload: true };

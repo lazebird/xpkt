@@ -73,7 +73,7 @@ function decode(arr, start) {
                 pos: [start + 10, start + 11],
                 change: (arr, e) => num_change(arr, e.pos, e.value, 2),
                 check: (arr, e) => (e.status = checksum_check(arr.slice(config.pos[0]), 20) ? undefined : 'error'),
-                update: (arr, e) => {
+                calc: (arr, e) => {
                     const tmparr = arr.slice(config.pos[0], config.pos[1] + 1);
                     tmparr[10] = tmparr[11] = 0; // set to 0 for checksum calc
                     e.value = num2hex(checksum_calc(tmparr, 20));
@@ -96,4 +96,5 @@ export default {
     ],
     initval,
     decode,
+    allow_payload: true,
 };
