@@ -1,4 +1,4 @@
-import { ProtocolConfig } from '#/protocol';
+import { ProtocolConfig, ProtocolNode } from '#/protocol';
 import { array2num, checksum_calc, checksum_check, num2hex, num_change } from './share';
 
 const initval = [0xa8, 0xfa, 0x18, 0xc7, 0x00, 0xe8, 0x17, 0x67];
@@ -14,7 +14,7 @@ const dportOpts = [
 ];
 
 function decode(arr: Array<number>, start: number) {
-  const config: ProtocolConfig = {
+  const config: ProtocolNode = {
     key: 'udp',
     pos: [start, start + 7],
     children: [
@@ -35,7 +35,7 @@ function decode(arr: Array<number>, start: number) {
           const newarr = [...fakehdr, ...udphdr, ...data];
           e.status = checksum_check(newarr, newarr.length) ? undefined : 'error';
         },
-        update: (arr, e) => {
+        calc: (arr, e) => {
           if (start < 20) return [];
           const iphdr = arr.slice(start - 20, start);
           const fakehdr = [...iphdr.slice(12, 20), 0x0, iphdr[9], ...arr.slice(start + 4, start + 6)];
@@ -51,4 +51,4 @@ function decode(arr: Array<number>, start: number) {
   };
   return config;
 }
-export default { name: 'udp', parents: [{ name: 'ipv4', pname: 'protocol', pval: 17 }], initval, decode };
+export default { name: 'udp', parents: [{ name: 'ipv4', pname: 'protocol', pval: 17 }], initval, decode, allow_payload: true } as ProtocolConfig;

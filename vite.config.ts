@@ -27,6 +27,20 @@ function pathResolve(dir: string) {
   return resolve(process.cwd(), '.', dir);
 }
 
+const buildgen = {
+  lib: {
+    entry: pathResolve('src/gen.ts'),
+    name: 'xpkt_protocol',
+    fileName: (format) => `xpkt_protocol.${format}.js`,
+  },
+  sourcemap: true,
+  rollupOptions: {
+    external: ['vue'],
+    output: { globals: { vue: 'Vue' } },
+  },
+};
+const buildview = { target: 'esnext', chunkSizeWarningLimit: 2000 };
+
 export default defineConfig(({ command, mode }) => {
   console.log('[vite.config.ts] command %s mode %s', command, mode);
   return {
@@ -40,7 +54,7 @@ export default defineConfig(({ command, mode }) => {
     define: { __APP_INFO__ },
     plugins: [vue(), Components({ resolvers: [AntdvResolver()] }), ...plugins],
     server: { host: true, port: 8080 },
-    build: { target: 'esnext', chunkSizeWarningLimit: 2000 },
+    build: mode === 'gen' ? buildgen : buildview,
     esbuild: { drop: mode === 'production' ? ['console', 'debugger'] : [] },
   };
 });

@@ -13,6 +13,7 @@ export function arr2hex(arr: Array<number>, wrap = 31) {
 }
 
 export function hex2arr(val: string) {
+  if (!val.match(/^[\s\da-fA-F]+$/)) return null;
   const nums = val.split(/\s+/).filter((e) => e.length);
   // console.log('val %s, nums %o', val, nums);
   for (const n of nums) if (n.length > 2) return null;

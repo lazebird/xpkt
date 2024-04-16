@@ -1,4 +1,4 @@
-import { ProtocolConfig } from '#/protocol';
+import { ProtocolConfig, ProtocolNode } from '#/protocol';
 import { array2num, array2mac, array2ipv4, arr2hex, num_change, mac_change, hex_change, num2hex } from './share';
 
 const initval = [
@@ -11,7 +11,7 @@ const initval = [
 ];
 
 function sflow_ethdata_decode(arr: Array<number>, start: number) {
-  const ethdata: ProtocolConfig = {
+  const ethdata: ProtocolNode = {
     key: 'ethernet frame data',
     pos: [start - 8, start + array2num(arr.slice(start - 4, start)) - 1],
     value: '',
@@ -25,7 +25,7 @@ function sflow_ethdata_decode(arr: Array<number>, start: number) {
   return ethdata;
 }
 function sflow_extswdata_decode(arr: Array<number>, start: number) {
-  const extswdata: ProtocolConfig = {
+  const extswdata: ProtocolNode = {
     key: 'extended switch data',
     pos: [start - 8, start + array2num(arr.slice(start - 4, start)) - 1],
     value: '',
@@ -40,7 +40,7 @@ function sflow_extswdata_decode(arr: Array<number>, start: number) {
 }
 function sflow_rawpkthdr_decode(arr: Array<number>, start: number) {
   const sample_len = array2num(arr.slice(start + 12, start + 16));
-  const rawpkthdr: ProtocolConfig = {
+  const rawpkthdr: ProtocolNode = {
     key: 'raw packet header',
     pos: [start - 8, start + array2num(arr.slice(start - 4, start)) - 1],
     value: '',
@@ -57,7 +57,7 @@ function sflow_rawpkthdr_decode(arr: Array<number>, start: number) {
 
 function sflow_flow_decode(arr: Array<number>, start: number) {
   const end = start + array2num(arr.slice(start - 4, start)) - 1;
-  const flow: ProtocolConfig = {
+  const flow: ProtocolNode = {
     key: 'flow',
     pos: [start - 8, end],
     value: '',
@@ -90,7 +90,7 @@ function sflow_flow_decode(arr: Array<number>, start: number) {
 }
 function decode(arr: Array<number>, start: number) {
   let num_samples = array2num(arr.slice(start + 24, start + 28));
-  const sflow: ProtocolConfig = {
+  const sflow: ProtocolNode = {
     key: 'sflow',
     pos: [start, start + 7],
     children: [
@@ -119,4 +119,4 @@ export default {
   parents: [{ name: 'udp', pname: 'dport', pval: 6343 }],
   initval,
   decode,
-};
+} as ProtocolConfig;

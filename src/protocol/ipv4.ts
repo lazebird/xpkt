@@ -1,4 +1,4 @@
-import { ProtocolConfig } from '#/protocol';
+import { ProtocolConfig, ProtocolNode } from '#/protocol';
 import { array2ipv4, array2num, checksum_calc, checksum_check, ipv4_change, num2hex, num_change } from './share';
 
 const initval = [0x45, 0x00, 0x00, 0xfc, 0xd4, 0x4d, 0x40, 0x00, 0x40, 0x11, 0x5c, 0xd7, 0x02, 0x02, 0x02, 0x5f, 0x02, 0x02, 0x02, 0x6a];
@@ -9,7 +9,7 @@ const protoOpts = [
   { label: 'udp', value: 17 },
 ];
 function decode(arr: Array<number>, start: number) {
-  const config: ProtocolConfig = {
+  const config: ProtocolNode = {
     key: 'ipv4',
     pos: [start, start + 19],
     children: [
@@ -23,7 +23,7 @@ function decode(arr: Array<number>, start: number) {
         pos: [start + 10, start + 11],
         change: (arr, e) => num_change(arr, e.pos, e.value, 2),
         check: (arr, e) => (e.status = checksum_check(arr.slice(config.pos[0]), 20) ? undefined : 'error'),
-        update: (arr, e) => {
+        calc: (arr, e) => {
           const tmparr = arr.slice(config.pos[0], config.pos[1] + 1);
           tmparr[10] = tmparr[11] = 0; // set to 0 for checksum calc
           e.value = num2hex(checksum_calc(tmparr, 20));
@@ -46,4 +46,5 @@ export default {
   ],
   initval,
   decode,
-};
+  allow_payload: true,
+} as ProtocolConfig;

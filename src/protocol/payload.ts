@@ -1,4 +1,4 @@
-import { ProtocolConfig } from '#/protocol';
+import { ProtocolConfig, ProtocolNode } from '#/protocol';
 import { hex2arr, arr2hex } from './share';
 
 const newArr = (len: number) =>
@@ -8,7 +8,7 @@ const newArr = (len: number) =>
 
 const initval = newArr(64);
 
-function len_change(arr: Array<number>, e: ProtocolConfig, config: ProtocolConfig) {
+function len_change(arr: Array<number>, e: ProtocolNode, config: ProtocolNode) {
   const len = Number(e.value);
   const newarr = newArr(len);
   const oldlen = config.pos[1] - config.pos[0] + 1;
@@ -19,7 +19,7 @@ function len_change(arr: Array<number>, e: ProtocolConfig, config: ProtocolConfi
   console.log('old len %d, new len %d, config %o', oldlen, newarr.length, config);
   return arr;
 }
-function data_change(arr: Array<number>, e: ProtocolConfig, config: ProtocolConfig) {
+function data_change(arr: Array<number>, e: ProtocolNode, config: ProtocolNode) {
   const newarr = hex2arr(e.value);
   if (!newarr) return arr;
   const oldlen = config.pos[1] - config.pos[0] + 1;
@@ -31,7 +31,7 @@ function data_change(arr: Array<number>, e: ProtocolConfig, config: ProtocolConf
   return arr;
 }
 function decode(arr: Array<number>, start: number) {
-  const config: ProtocolConfig = {
+  const config: ProtocolNode = {
     key: 'payload',
     pos: [start, arr.length - 1],
     children: [
@@ -41,4 +41,4 @@ function decode(arr: Array<number>, start: number) {
   };
   return config;
 }
-export default { name: 'payload', parents: 'all', priority: 255, initval, decode };
+export default { name: 'payload', parents: [], priority: 255, initval, decode } as ProtocolConfig;

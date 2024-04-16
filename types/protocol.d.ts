@@ -1,39 +1,40 @@
 interface ProtocolDecodeFn {
-  (_arr: Array<number>, _start: number): ProtocolConfig;
+  (_arr: Array<number>, _start: number): ProtocolNode;
 }
 
 interface ProtocolChangeFn {
-  (_arr: Array<number>, _e: ProtocolConfig): Array<number>;
+  (_arr: Array<number>, _e: ProtocolNode): Array<number>;
 }
 
 interface ProtocolCheckFn {
-  (_arr: Array<number>, _e: ProtocolConfig): any;
+  (_arr: Array<number>, _e: ProtocolNode): any;
 }
-interface ProtocolUpdateFn {
-  (_arr: Array<number>, _e: ProtocolConfig): Array<number>;
+interface ProtocolCalcFn {
+  (_arr: Array<number>, _e: ProtocolNode): Array<number>;
 }
 
-export interface ProtocolParentItem {
+export interface ProtocolParentConfig {
   name: string;
-  pname: string;
-  pval: any;
+  pname?: string;
+  pval?: any;
 }
-export interface ProtocolConfig {
+export interface ProtocolNode {
   key: string;
   pos: Array<number>;
-  children?: Array<ProtocolConfig>;
-  type?: 'number' | 'mac' | 'ipv4' | 'hex' | 'pkt';
+  children?: Array<ProtocolNode>;
+  type?: 'number' | 'mac' | 'ipv4' | 'ipv6' | 'hex' | 'pkt';
   value?: any;
   options?: Array<any>;
   status?: 'error';
   change?: ProtocolChangeFn;
   check?: ProtocolCheckFn;
-  update?: ProtocolUpdateFn;
+  calc?: ProtocolCalcFn;
 }
-export interface ProtocolItem {
+export interface ProtocolConfig {
   name: string;
   priority?: number;
-  parents: string | Array<ProtocolParentItem>;
+  parents: Array<ProtocolParentConfig> | null;
   initval: Array<number>;
   decode: ProtocolDecodeFn;
+  allow_payload?: boolean;
 }
