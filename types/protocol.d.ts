@@ -38,3 +38,9 @@ export interface ProtocolConfig {
   decode: ProtocolDecodeFn;
   allow_payload?: boolean;
 }
+
+export interface FileData {
+  name: string;
+  path: string;
+  content: string;
+}

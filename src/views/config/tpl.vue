@@ -1,7 +1,7 @@
 <template>
   <a-row style="align-items: center; justify-content: center">
     <h2>Structure</h2>
-    <a-tooltip title="update checksums"> <a-button class="btn" type="primary" @click.stop="onCalc" :icon="h(CalculatorOutlined)" /></a-tooltip>
+    <a-tooltip title="calc checksums"> <a-button class="btn" type="primary" @click.stop="onCalc" :icon="h(CalculatorOutlined)" /></a-tooltip>
     <a-tooltip title="undo changes"> <a-button class="btn" @click.stop="onUndo" :icon="h(UndoOutlined)" danger /></a-tooltip>
     <a-tooltip title="reload from hex"> <a-button class="btn" @click.stop="onReload" :icon="h(ReloadOutlined)" /></a-tooltip>
   </a-row>
@@ -15,7 +15,7 @@
             <a-row style="align-items: center; justify-content: flex-start" v-else-if="record.type === 'hex'">
               <a-input class="val" v-model:value="record.value" :status="record.status" @click.stop="onClick(record)" @change="onChange(d, record)" />
               <a-button v-if="record.check" class="btn" @click.stop="record.check(flowStore.editPkt, record)" :icon="h(CheckOutlined)" />
-              <a-button v-if="record.update" class="btn" type="primary" @click.stop="record.update(flowStore.editPkt, record)" :icon="h(CalculatorOutlined)" />
+              <a-button v-if="record.calc" class="btn" type="primary" @click.stop="record.calc(flowStore.editPkt, record)" :icon="h(CalculatorOutlined)" />
             </a-row>
             <a-textarea v-else class="pkt" v-model:value="record.value" @click.stop="onClick(record)" @change="onChange(d, record)" autoSize />
           </template>
@@ -39,7 +39,7 @@
   import { ref, h, watch } from 'vue';
   import { get_protos, pkt_decode } from '@/api/pkt';
   import { CalculatorOutlined, CheckOutlined, CloseOutlined, PlusOutlined, ReloadOutlined, UndoOutlined } from '@ant-design/icons-vue';
-  import { ProtocolConfig, ProtocolItem } from '#/protocol';
+  import { ProtocolNode, ProtocolConfig } from '#/protocol';
   import { useFlowStore } from '@/store/flow';
   import { useProtoStore } from '@/store/protocol';
   import { message } from 'ant-design-vue';
@@ -48,7 +48,7 @@
   const flowStore = useFlowStore();
 
   const activeKey = ref();
-  const menus = ref([] as ProtocolItem[]);
+  const menus = ref([] as ProtocolConfig[]);
   var oldData: Array<number>;
   const data = ref(data_update(flowStore.editPkt, true));
 
@@ -70,8 +70,8 @@
     flowStore.pkt_update(oldData);
     activeKey.value = data.value.length - 1;
   };
-  const onClick = (e: ProtocolConfig) => flowStore.pkt_select(e.pos);
-  const onClose = (e: ProtocolConfig) => {
+  const onClick = (e: ProtocolNode) => flowStore.pkt_select(e.pos);
+  const onClose = (e: ProtocolNode) => {
     const index = data.value.findIndex((o) => o.key === e.key);
     if (index < 0) return;
     data.value = data.value.slice(0, index);
@@ -87,7 +87,7 @@
     activeKey.value = data.value.length - 1;
   }
 
-  function onChange(hdr: ProtocolConfig, e: ProtocolConfig) {
+  function onChange(hdr: ProtocolNode, e: ProtocolNode) {
     try {
       const buf = e.change?.(flowStore.editPkt, e);
       if (!buf) throw new Error(`change function of ${hdr.key} should return the pkt array`);
@@ -97,15 +97,15 @@
       console.log('%s change error: %o', e.key, error);
     }
     menus.value = menu_update(data.value);
-    if (!e.update) onCalc(); // update checksum automatically, not for checksum itself
+    if (!e.calc) onCalc(); // calc checksum automatically, not for checksum itself
   }
   function onCalc() {
     for (const s of data.value)
       for (const e of s.children ?? []) {
         try {
-          e?.update?.(flowStore.editPkt, e);
+          e?.calc?.(flowStore.editPkt, e);
         } catch (error) {
-          message.error(`Config '${e.key}' update error: ${error}`, 5);
+          message.error(`Config '${e.key}' calc error: ${error}`, 5);
         }
       }
   }
@@ -119,7 +119,7 @@
     flowStore.editFlow.structs = arr.map((a) => a.key);
     return arr;
   }
-  function menu_update(data: Array<ProtocolConfig>) {
+  function menu_update(data: Array<ProtocolNode>) {
     return get_protos(data.at(-1), protoStore.data);
   }
 </script>

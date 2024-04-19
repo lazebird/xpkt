@@ -9,3 +9,4 @@ components.d.ts
 *.cfg
 # for test
 src-tauri/protocol
+/protocol
