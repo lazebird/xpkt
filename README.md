@@ -32,9 +32,9 @@
 
 # Basic introduction to xpkt
 - xpkt is a professional free outsourcing tool software. It has the following characteristics:
-- **Cross-platform contract testing tool**
+- **Cross-platform packet testing tool**
 - Dispatch:
-     - Rich contracting strategies: rate, total number, etc.
+     - Rich sending strategies: rate, total number, etc.
      - Support field changes: including mac auto-increment/random, ip auto-increment/random, and general field type auto-increment/random
      - Powerful performance needs to be based on hardware conditions. Performance testing and comparison can be done later.
      - Multiple flows concurrently
