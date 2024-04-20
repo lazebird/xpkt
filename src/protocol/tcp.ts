@@ -2,16 +2,6 @@ import { ProtocolConfig, ProtocolNode } from '#/protocol';
 import { array2num, checksum_calc, checksum_check, num2hex, num_change } from './share';
 
 const initval = [0x1d, 0xc7, 0x01, 0xbb, 0x22, 0x70, 0xf3, 0xfa, 0xc1, 0xa1, 0x2c, 0x3c, 0x50, 0x10, 0x20, 0x00, 0x5c, 0x4d, 0x00, 0x00];
-const dportOpts = [
-  { label: 'dhcp-server', value: 67 },
-  { label: 'dhcp-client', value: 68 },
-  { label: 'tftp', value: 69 },
-  { label: 'snmp', value: 161 },
-  { label: 'snmptrap', value: 162 },
-  { label: 'radius', value: 1812 },
-  { label: 'radius-acct', value: 1813 },
-  { label: 'sflow', value: 6343 },
-];
 
 function decode(arr: Array<number>, start: number) {
   const config: ProtocolNode = {
