@@ -8,7 +8,7 @@
       "url": "https://github.com/lazebird/xpkt/raw/main/releases/1.2.0/xpkt_1.2.0_amd64.AppImage.tar.gz"
     },
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUam9mbTBxaW1hZDAwajljOENQSmJ2bnpQNmdyY1VxZEJpcElKQ1RSc1liNzQvYlo5RFBzOFdBNmdGOFR2UnZVaEFlbGp2WDVTa2wxOVVseHd1d3hTbUkzQ2lIcU40SlF3PQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzE4Mjg2NzI4CWZpbGU6eHBrdF8xLjEuMV94NjQtc2V0dXAubnNpcy56aXAKRkNrZU05ZDRGNGlZcjEvZXFVRUV2U1NBYWR0eUIxeWNLeUhkS2FaaWNDTUIzRi9XWk5rZXNnaURxQ0s1Vi9kQjJ1dDBEUS9WWUM3S3dyWTlqSjFvQkE9PQo=",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUam9mbTBxaW1hZDdEZFFpN0RweXplNW5FYWVQYUo1Q1RaTFI1YlFtYWh5ejJFNDBKUDZKMG9RbHZDZ1F6RUZPYWw1bU82MXZIbDBlRVZWOGx2T21xcDBvZ2hUUzNjandzPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzE4Mjg2NTg2CWZpbGU6eHBrdF8xLjIuMF94NjQtc2V0dXAubnNpcy56aXAKeEZ5ZG5nTURqY2x1S2tqYjlPcWFTMmRDZjlJaE8ySUViZzhMSXd3RjN4UE5GdDNwMmR5Rjk5L2lrNHNGNmE4dDFTOHJLRHBmRURGTWg4SGIrc0phQnc9PQo=",
       "url": "https://github.com/lazebird/xpkt/raw/main/releases/1.2.0/xpkt_1.2.0_x64-setup.nsis.zip"
     }
   }
