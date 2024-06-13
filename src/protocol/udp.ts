@@ -51,4 +51,13 @@ function decode(arr: Array<number>, start: number) {
   };
   return config;
 }
-export default { name: 'udp', parents: [{ name: 'ipv4', pname: 'protocol', pval: 17 }], initval, decode, allow_payload: true } as ProtocolConfig;
+export default {
+  name: 'udp',
+  parents: [
+    { name: 'ipv4', pname: 'protocol', pval: 17 },
+    { name: 'ipv6', pname: 'next header', pval: 17 },
+  ],
+  initval,
+  decode,
+  allow_payload: true,
+} as ProtocolConfig;

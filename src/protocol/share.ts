@@ -95,3 +95,17 @@ export function checksum_check(arr: Array<number>, len: number) {
 }
 
 export const num2hex = (n: number) => '0x' + n.toString(16);
+
+export function array2ipv6(arr: Array<number>) {
+  if (arr.length != 16) return null;
+  const newarr = [];
+  for (let i = 0; i < 16; i += 2) newarr.push(((arr[i] << 8) + arr[i + 1]).toString(16));
+  return newarr.join(':');
+}
+export function ipv6_change(arr: Array<number>, pos: Array<number>, val: string) {
+  const nums = ip2arr(val);
+  if (!nums) return arr;
+  let j = 0;
+  for (let i = pos[0]; i <= pos[1]; i++) arr[i] = nums[j++];
+  return arr;
+}

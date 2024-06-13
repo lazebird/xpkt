@@ -26,14 +26,10 @@
     </a-collapse-panel>
   </a-collapse>
   <br />
-  <a-dropdown v-if="menus.length">
-    <a class="ant-dropdown-link" @click.prevent> <PlusOutlined /> </a>
-    <template #overlay>
-      <a-menu @click="onAdd">
-        <a-menu-item v-for="(m, index) in menus" :key="index">{{ m.name }} </a-menu-item>
-      </a-menu>
-    </template>
-  </a-dropdown>
+  <a-row v-if="menus.length" style="height: 40px">
+    <a-button :icon="h(PlusOutlined)" type="link">Add</a-button>
+    <a-radio-group v-model:value="conf" option-type="button" button-style="solid" :options="menus.map((m) => ({ label: m.name, value: m.initval }))" @change="onAdd" />
+  </a-row>
 </template>
 <script setup lang="ts">
   import { ref, h, watch } from 'vue';
@@ -51,6 +47,7 @@
   const menus = ref([] as ProtocolConfig[]);
   var oldData: Array<number>;
   const data = ref(data_update(flowStore.editPkt, true));
+  const conf = ref();
 
   const columns = [
     { title: 'Name', dataIndex: 'key' },
@@ -80,8 +77,8 @@
     flowStore.pkt_update(e.pos[0] ? flowStore.editPkt.slice(0, e.pos[0]) : []);
     activeKey.value = data.value.length - 1;
   };
-  function onAdd({ key }: { key: number }) {
-    const buf = [...flowStore.editPkt, ...menus.value[key].initval];
+  function onAdd() {
+    const buf = [...flowStore.editPkt, ...conf.value];
     data.value = data_update(buf);
     flowStore.pkt_update(buf);
     activeKey.value = data.value.length - 1;
