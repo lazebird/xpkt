@@ -1,0 +1,15 @@
+{
+  "version": "1.2.0",
+  "notes": "Feat: auto update\nFeat: more protos\nFeat: support c array format in hex edit",
+  "pub_date": "2024-06-13T19:25:57Z",
+  "platforms": {
+    "linux-x86_64": {
+      "signature": "Content of app.AppImage.tar.gz.sig",
+      "url": "https://github.com/username/reponame/releases/download/v1.0.0/app-amd64.AppImage.tar.gz"
+    },
+    "windows-x86_64": {
+      "signature": "Content of app.msi.sig",
+      "url": "https://github.com/username/reponame/releases/download/v1.0.0/app-x64.msi.zip"
+    }
+  }
+}
