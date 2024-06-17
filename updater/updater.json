@@ -5,11 +5,11 @@
   "platforms": {
     "linux-x86_64": {
       "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUam9mbTBxaW1hZDg3UEhTdFRySjVGRkVValVLVG1TRGlEY3kwbklOUW14MmlNSDkvZW9VZW1KSlV1UytQV3hpd3lCVTZEZW5IQlRJMWZNOW0wSXMrRUozbFhUZW0wZHdNPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzE4Mjg3NDE4CWZpbGU6eHBrdF8xLjIuMF9hbWQ2NC5BcHBJbWFnZS50YXIuZ3oKVHMzclkreTFMUENXeWVsWTgyKzltYnYveWNwNng2eEtOcnJZNTM2UHUwZnFNMkxRc1Q4Wkl2dy9rcWdBd0swWEcrUmkzanF2N1dNeWlqQUtEOWRMQ3c9PQo=",
-      "url": "https://github.com/lazebird/xpkt/raw/main/releases/1.2.0/xpkt_1.2.0_amd64.AppImage.tar.gz"
+      "url": "https://github.com/lazebird/xpkt/releases/download/1.2.0/xpkt_1.2.0_amd64.AppImage.tar.gz"
     },
     "windows-x86_64": {
       "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUam9mbTBxaW1hZDdEZFFpN0RweXplNW5FYWVQYUo1Q1RaTFI1YlFtYWh5ejJFNDBKUDZKMG9RbHZDZ1F6RUZPYWw1bU82MXZIbDBlRVZWOGx2T21xcDBvZ2hUUzNjandzPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzE4Mjg2NTg2CWZpbGU6eHBrdF8xLjIuMF94NjQtc2V0dXAubnNpcy56aXAKeEZ5ZG5nTURqY2x1S2tqYjlPcWFTMmRDZjlJaE8ySUViZzhMSXd3RjN4UE5GdDNwMmR5Rjk5L2lrNHNGNmE4dDFTOHJLRHBmRURGTWg4SGIrc0phQnc9PQo=",
-      "url": "https://github.com/lazebird/xpkt/raw/main/releases/1.2.0/xpkt_1.2.0_x64-setup.nsis.zip"
+      "url": "https://github.com/lazebird/xpkt/releases/download/1.2.0/xpkt_1.2.0_x64-setup.nsis.zip"
     }
   }
 }
