@@ -1,15 +1,15 @@
 {
-  "version": "1.2.0",
-  "notes": "Feat: auto update\nFeat: more protos\nFeat: support c array format in hex edit",
-  "pub_date": "2024-06-13T22:25:57Z",
+  "version": "1.3.0",
+  "notes": "support load well-known template, instead of build with pieces \noptimize edit mode UI \nsupport cloud sync templates \noptimize multi page UI",
+  "pub_date": "2024-06-21T22:25:57Z",
   "platforms": {
     "linux-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUam9mbTBxaW1hZDg3UEhTdFRySjVGRkVValVLVG1TRGlEY3kwbklOUW14MmlNSDkvZW9VZW1KSlV1UytQV3hpd3lCVTZEZW5IQlRJMWZNOW0wSXMrRUozbFhUZW0wZHdNPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzE4Mjg3NDE4CWZpbGU6eHBrdF8xLjIuMF9hbWQ2NC5BcHBJbWFnZS50YXIuZ3oKVHMzclkreTFMUENXeWVsWTgyKzltYnYveWNwNng2eEtOcnJZNTM2UHUwZnFNMkxRc1Q4Wkl2dy9rcWdBd0swWEcrUmkzanF2N1dNeWlqQUtEOWRMQ3c9PQo=",
-      "url": "https://github.com/lazebird/xpkt/releases/download/1.2.0/xpkt_1.2.0_amd64.AppImage.tar.gz"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUam9mbTBxaW1hZDFic3RDeithV0pxSkhQM1ZvVkZ2RU1qOHNSelVGV0p2TUdMYVRtL1JBQWNtYU83Sy9MeDBqWUZCaUpzdGhUTU14anlVSU9mVFVBWGd2N0tudDMrSHdVPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzE4OTg0MzQzCWZpbGU6eHBrdF8xLjMuMF9hbWQ2NC5BcHBJbWFnZS50YXIuZ3oKR2tranRYcWlHM1FaeVM2ODBTTFRzdG53K1VTLzVwMVc4UzlTeE1BT1N1K0k2K1FDYzU4UWk3MG1ObTdRWHpSZVMrMFpMQXRQYm9xVVpWRFVmcUIrRGc9PQo=",
+      "url": "https://github.com/lazebird/xpkt/releases/download/1.3.0/xpkt_1.3.0_amd64.AppImage.tar.gz"
     },
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUam9mbTBxaW1hZDdEZFFpN0RweXplNW5FYWVQYUo1Q1RaTFI1YlFtYWh5ejJFNDBKUDZKMG9RbHZDZ1F6RUZPYWw1bU82MXZIbDBlRVZWOGx2T21xcDBvZ2hUUzNjandzPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzE4Mjg2NTg2CWZpbGU6eHBrdF8xLjIuMF94NjQtc2V0dXAubnNpcy56aXAKeEZ5ZG5nTURqY2x1S2tqYjlPcWFTMmRDZjlJaE8ySUViZzhMSXd3RjN4UE5GdDNwMmR5Rjk5L2lrNHNGNmE4dDFTOHJLRHBmRURGTWg4SGIrc0phQnc9PQo=",
-      "url": "https://github.com/lazebird/xpkt/releases/download/1.2.0/xpkt_1.2.0_x64-setup.nsis.zip"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUam9mbTBxaW1hZDhyL1lJNUQvT1h3SlZ3Z2F5UHlUMndDT05ITmJEeWV0WkR0QUtBcGNOa094RGVhd21BTnRLQzhCT3llYWpaMDlmQVd4SVlRQ015RWFJcko3SGpDS0FzPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzE4OTgzODU3CWZpbGU6eHBrdF8xLjMuMF94NjQtc2V0dXAubnNpcy56aXAKWWVieTdzRDRnbU9GTE8yMGF6a0R4MCtWUmNSUkNDTTVJWU1UY095Y1lBeGppVlZEYnBodE1ka3JoR2d4M0cvQjZoUGRGbW13TVF1WXBOZTlIQkhKQ2c9PQo=",
+      "url": "https://github.com/lazebird/xpkt/releases/download/1.3.0/xpkt_1.3.0_x64-setup.nsis.zip"
     }
   }
 }
