@@ -1,15 +1,15 @@
 {
-  "version": "1.4.0",
-  "notes": "slow mode: now you can set delay=3000 ms to get a speed of 1 packet per 3 seconds",
-  "pub_date": "2024-09-24T22:25:57Z",
+  "version": "2.1.0",
+  "notes": "feat: privilege elevation, more protocols embeded; fix: data error issue when edit flow in page 2+ of multi view",
+  "pub_date": "2026-03-14T11:25:57Z",
   "platforms": {
     "linux-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUam9mbTBxaW1hZDRGT001L1JRMTBOV2VrRXowK2RUSUdlK0tjMEt5Q0hOa0h0V3hTeXFTZkRSSUtqZ29tenhuT3lrQVpjSzFBcDdYU3JYc3hSQUszT0IyMExySkQvU3dzPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzI3MTg1NjA1CWZpbGU6eHBrdF8xLjQuMF9hbWQ2NC5BcHBJbWFnZS50YXIuZ3oKSXo2K25hSmxrRzB2STcxNUg4S3pHd0lGTzlqVWxvR045Mll2M0NxNllJRUFoR21YejJDVzVTVlB2T3NhWDRFcUFsQ3d2Rkp0OGtGQ1d1NmhQcGxKQWc9PQo=",
-      "url": "https://github.com/lazebird/xpkt/releases/download/1.4.0/xpkt_1.4.0_amd64.AppImage.tar.gz"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUam9mbTBxaW1hZDJiSTlzanh6R0dLc1ovd3FNS091VFlpNjdJQkp3d0tEMTk3a012R2VnWnpxN3dncFVsQUpVdlhCZ2VqYzIzMVRJSHIrL1crWlAreG1SVkl2YStMSHcwPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzczNDA5NTkwCWZpbGU6eHBrdF8yLjEuMF9hbWQ2NC5BcHBJbWFnZS50YXIuZ3oKNkZnaFhUR1MvOTdDLzZKVWVaR3U1bHVaR0d5WGZ2enJjQ0VjeGJNSk8vVXNMc0wza2dZaTFUR1pMNHpBa0FwT3NrZHdCSVh2ZklvM01KWldDdkR5QlE9PQo=",
+      "url": "https://github.com/lazebird/xpkt/releases/download/2.1.0/xpkt_2.1.0_amd64.AppImage.tar.gz"
     },
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUam9mbTBxaW1hZHpvQWQ4czE5c3ZucWVhOG9uaXNMSmJXd2R6ODlkZzYvTTJuTC9aeXVOU2xqYmgxUThYM2FMOFYzTCt6YkJuSDlQZ2EvVXJhRE9tU2diSldWTlBrdHdJPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzI3MTg1MDQ0CWZpbGU6eHBrdF8xLjQuMF94NjQtc2V0dXAubnNpcy56aXAKV3JRYXhLZy9BdUlIUnZ3Zkw4N0cwYlBMNGRva0U3akZ5dXhYS0Z5Mmg2ZWEydU1uMzB4WFBxR2N2WGJ3Z0Z6VEhDM2ZKTThKbXhZUUtJWHZwRVA2RFE9PQo=",
-      "url": "https://github.com/lazebird/xpkt/releases/download/1.4.0/xpkt_1.4.0_x64-setup.nsis.zip"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUam9mbTBxaW1hZHpYTlBLMk4weUxINit6V1RsRW1ZajVRY2xkdmY5Ni9RVG1pM2U0TDNrZmRXTEhCRjBpTG5aL1dJNjkrNGtWYngwN3JlbHNyR29mdjVXRTREdXRJMGdJPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzczNDU3MTIwCWZpbGU6eHBrdF8yLjEuMF94NjQtc2V0dXAubnNpcy56aXAKc2tiNXE0ZU1OVktRUHJXYkJKdXh6K0xDZjRRU0xWY3Z3VXRpQmdoMFhmV2dtdjdTYTVCNGRlWmFpdVFHaDE3ZUViMjQ4U1VFMmRsNUYxMlNrcHlTQ1E9PQo=",
+      "url": "https://github.com/lazebird/xpkt/releases/download/2.1.0/xpkt_2.1.0_x64-setup.nsis.zip"
     }
   }
 }
